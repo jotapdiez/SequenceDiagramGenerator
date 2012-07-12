@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin
+   id="sequence_diagram_generator"
+   name="SequenceDiagramGenerator"
+   version="0.1"
+
+   class="org.diagramsequencegenerator.Activator">
+   <requires>
+      <import plugin="org.eclipse.core.commands" version="3.6.0"/>
+      <import plugin="org.eclipse.jdt.core" version="3.7.3"/>
+      <import plugin="org.eclipse.jface" version="3.7.0"/>
+      <import plugin="org.eclipse.ui" version="3.7.0"/>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+   </requires>
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+            <command
+               commandId="org.diagramsequencegenerator.popup.actions.Generate"
+               label="Sequences Generator"
+               style="push">
+         </command>
+      </menuContribution>
+	</extension>
+   	<extension point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.diagramsequencegenerator.Generate"
+            id="org.diagramsequencegenerator.popup.actions.Generate"
+            name="Generate">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="Diagram Sequence Generator Preference"
+            class="org.diagramsequencegenerator.preferences.DiagramSequenceGeneratorPreferencePage"
+            id="org.diagramsequencegenerator.preferences.DiagramSequenceGeneratorPreferencePage">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.diagramsequencegenerator.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Diagram Sequence Generator - Category"
+            id="Test">
+      </category>
+      <view
+            name="Diagram Sequence Generator - View"
+            icon="icons/sample.gif"
+            category="Test"
+            class="org.diagramsequencegenerator.views.MethodsSelector"
+            id="org.diagramsequencegenerator.views.MethodsSelector">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="org.diagramsequencegenerator.views.MethodsSelector">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+</plugin>
